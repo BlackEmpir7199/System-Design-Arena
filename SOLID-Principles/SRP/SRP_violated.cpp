@@ -58,24 +58,33 @@ public:
     }
 
     void saveToDB(){
-        cout << "Cart saved to DB";
+        cout << "Cart saved to DB" << endl;
     }
-
-
 };
 
 int main()
 {
 
     CartHandler* cart = new CartHandler();
-    cart->addItems(new Product("rice",100));
-    cart->addItems(new Product("brinjal",40));
-    cart->addItems(new Product("cucumber",20));
-    cart->addItems(new Product("facewash",50));
+    Product *rice;
+    Product *brinjal;
+    Product *cucumber;
+    Product *facewash;
+
+    cart->addItems(rice = new Product("rice", 100));
+    cart->addItems(brinjal = new Product("brinjal", 40));
+    cart->addItems(cucumber = new Product("cucumber", 20));
+    cart->addItems(facewash = new Product("facewash", 50));
 
     cart->invoiceGenerate();
     cart->saveToDB();
 
+    cart->removeItem(rice);
+    cart->removeItem(cucumber);
+    cart->removeItem(brinjal);
+
+    cart->invoiceGenerate();
+    cart->saveToDB();
 
     return 0;
 }
