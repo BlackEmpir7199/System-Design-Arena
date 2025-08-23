@@ -75,6 +75,8 @@ public:
         Accounts.push_back(acc);
     }
 
+
+    // note the logic error can also be done in the client side : but then it will break the OC principle and writing sensitive code in the client is definitely not a good practice
     void processTransactions()
     {
         for (Account *acc : Accounts)
