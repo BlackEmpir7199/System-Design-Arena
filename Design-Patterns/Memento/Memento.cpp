@@ -4,8 +4,30 @@
 
 using namespace std;
 
-class Memento;
+// Memento - Stores database state snapshot
+class Memento
+{
+private:
+    unordered_map<string, string> state;
 
+public:
+    Memento(unordered_map<string, string> dump)
+    {
+        state = dump;
+    }
+
+    unordered_map<string, string> getState()
+    {
+        return state;
+    }
+
+    void setState(unordered_map<string, string> dump)
+    {
+        state = dump;
+    }
+};
+
+// Originator - The database whose state we want to save/restore
 class Database{
     private:
         unordered_map<string,string> mpp;
@@ -36,27 +58,19 @@ class Database{
         void restore(Memento* m){
             mpp = m->getState();
         }
-};
 
-
-class Memento{
-    private:
-        unordered_map<string,string> state;
-    public:
-        Memento(unordered_map<string,string> dump){
-            state=dump;
-        }   
-        
-        unordered_map<string,string> getState(){
-            return state;
-        }
-        
-        void setState(unordered_map<string,string> dump){
-            state=dump;
+        void printValues()
+        {
+            if (mpp.size() == 0)
+                cout << "Nothing in DB" << endl;
+            for (auto it : mpp)
+            {
+                cout << it.first << " : " << it.second << endl;
+            }
         }
 };
 
-
+// Caretaker - Manages the memento (transaction manager)
 class TransactionManager { 
     private:
         Memento* m;
@@ -108,7 +122,19 @@ int main(){
     db.create("fruit","orange");
     db.create("toy","horse");
 
-    tm.
+    db.printValues();
+
+    tm.commitTransaction();
+
+    tm.beginTransaction(&db);
+    db.create("car", "toyota");
+    db.create("bike", "kawasaki");
+
+    db.printValues();
+
+    tm.rollBackTransaction(&db);
+
+    db.printValues();
 
     return 0;
 }
