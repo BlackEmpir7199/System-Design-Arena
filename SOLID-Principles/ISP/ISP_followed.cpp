@@ -18,6 +18,7 @@ public:
     virtual int volume() = 0;
 };
 
+// now sqare just need to override area
 class Square : public twoDShape
 {
 private:
@@ -32,6 +33,8 @@ public:
     }
 };
 
+
+// cube can override area and volume
 class Cube : public threeDShape
 {
 private:
@@ -56,6 +59,7 @@ int main()
     twoDShape *sq = new Square(10);
     threeDShape *cu = new Cube(10);
 
+    // no error handling required
     cout << cu->area() << endl;
     cout << cu->volume() << endl;
     cout << sq->area() << endl;
