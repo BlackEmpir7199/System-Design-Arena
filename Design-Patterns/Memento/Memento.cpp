@@ -70,7 +70,7 @@ class Database{
         }
 };
 
-// Caretaker - Manages the memento (transaction manager)
+// Caretaker - Manages the memento (transaction manager)n
 class TransactionManager { 
     private:
         Memento* m;
