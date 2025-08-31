@@ -30,17 +30,17 @@ public:
 class ProxyImage : public Image
 {
     // mimic the behavoiur of the real image so that the client dooes not have to worry about anything
-    string name;
+    string fileName;
     RealImage *realImage;
 
 public:
-    ProxyImage(string name) : name(name) {}
+    ProxyImage(string name) : fileName(fileName) {}
 
     // lazy loading and delegate it to the real image
     void render()
     {
         if (realImage == nullptr)
-            realImage = new RealImage(name);
+            realImage = new RealImage(fileName);
         realImage->render();
     }
 };
